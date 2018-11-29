@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+      - ${CERT}:/certs/portainer.crt
+      - ${KEY}:/certs/portainer.key
+    network_mode: ${NETWORK}
+    ports:
+      - ${PORT}:9000
+    container_name: portainer-ssl
+    hostname: portainer-ssl
+    command: --no-auth -H unix:///var/run/docker.sock --ssl
+    restart: always
+
+volumes:
+  portainer:
+    driver: local
