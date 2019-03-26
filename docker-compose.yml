@@ -8,7 +8,8 @@ services:
       - portainer:/data
       - ${CERT}:/certs/portainer.crt
       - ${KEY}:/certs/portainer.key
-    network_mode: ${NETWORK}
+    networks:
+      - admin
     ports:
       - ${PORT}:9000
     container_name: portainer
@@ -19,3 +20,7 @@ services:
 volumes:
   portainer:
     driver: local
+
+networks:
+  admin:
+    driver: bridge
